@@ -1674,16 +1674,7 @@ def main_streamlit():
         # Mostrar animación 3D fluida
         if "historial_generaciones" in st.session_state and st.session_state["historial_generaciones"]:
             st.divider()
-            st.header("🎬 Animación 3D Fluida de la Evolución")
-
-            st.info("""
-            **Cómo usar la animación:**
-            - 🎮 Click en **▶ Play** para reproducir la evolución completa de forma fluida
-            - ⏸ Click en **Pause** para detener en cualquier momento
-            - 🎚️ Arrastra el **slider** para navegar entre generaciones manualmente
-            - 🔄 Puedes rotar, zoom y pan en el gráfico 3D mientras se reproduce
-            - ⚡ Las transiciones suaves entre generaciones evitan los "flashes"
-            """)
+            st.header("🧬 Evolución de la Población")
 
             historial_gen = st.session_state["historial_generaciones"]
             vel_anim = st.session_state.get("velocidad_animacion", 100)
@@ -1698,8 +1689,6 @@ def main_streamlit():
                 fig_animacion.layout.updatemenus[0].buttons[0].args[1]["transition"]["easing"] = "cubic-in-out"
 
             st.plotly_chart(fig_animacion, use_container_width=True, key=f"animacion_3d_{len(historial_gen)}")
-
-            st.success("✅ ¡Animación lista! Dale click a ▶ Play para ver la evolución fluida")
 
 # ============================================================================
 # MAIN
