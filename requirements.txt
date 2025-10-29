@@ -1,0 +1,6 @@
+numpy
+matplotlib
+streamlit
+plotly
+flask
+flask-cors
