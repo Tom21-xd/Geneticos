@@ -1259,7 +1259,7 @@ def main_streamlit():
 
         st.divider()
 
-        st.subheader("Animación 3D Fluida")
+        st.subheader("Animación 3D")
         visualizar_3d = st.checkbox("Activar animación 3D", value=True, help="Crea una animación fluida después de ejecutar el algoritmo")
         if visualizar_3d:
             col1, col2 = st.columns(2)
@@ -1662,16 +1662,16 @@ def main_streamlit():
             "Flujo": resultados["evol_parametros"]["flujo"]
         })
 
-        csv = df.to_csv(index=False)
+        csv = df.to_csv(index=False).encode('utf-8')
         st.download_button(
             "📥 Descargar CSV",
             csv,
-            f"resultados_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
+            "resultados_optimizacion.csv",
             "text/csv",
-            use_container_width=True
+            use_container_width=True,
+            key="download_csv_results"
         )
 
-        # Mostrar animación 3D fluida
         if "historial_generaciones" in st.session_state and st.session_state["historial_generaciones"]:
             st.divider()
             st.header("🧬 Evolución de la Población")
@@ -1680,7 +1680,7 @@ def main_streamlit():
             vel_anim = st.session_state.get("velocidad_animacion", 100)
             mostrar_reprod = st.session_state.get("mostrar_reproduccion", True)
 
-            with st.spinner("Generando animación 3D fluida..."):
+            with st.spinner("Generando animación 3D..."):
                 fig_animacion = crear_animacion_3d_completa(historial_gen, params["limites"], mostrar_reproduccion=mostrar_reprod)
 
                 # Configurar transiciones MUY suaves
