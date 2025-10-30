@@ -945,7 +945,7 @@ def crear_animacion_3d_completa(historial_generaciones, limites, mostrar_reprodu
             # Obtener fitness de la generación anterior
             fitness_anterior = historial_generaciones[idx_gen - 1]["fitness"]
 
-            # Crear frames de transición fluida
+            # Crear frames de transición fluida (más frames = más fluido)
             frames_transicion = crear_frames_reproduccion_fluida(
                 poblacion_anterior,
                 poblacion,
@@ -953,7 +953,7 @@ def crear_animacion_3d_completa(historial_generaciones, limites, mostrar_reprodu
                 fitness,
                 generacion,
                 limites,
-                num_steps=3  # 3 pasos intermedios para fluidez
+                num_steps=20  # 10 pasos intermedios para máxima fluidez
             )
             frames.extend(frames_transicion)
             frame_counter += len(frames_transicion)
@@ -1264,11 +1264,11 @@ def main_streamlit():
         if visualizar_3d:
             col1, col2 = st.columns(2)
             with col1:
-                velocidad_animacion = st.slider("Velocidad de animación (ms/frame)", 30, 500, 100, 10, help="Duración de cada frame. Menor = más rápido.")
+                velocidad_animacion = st.slider("Velocidad de animación (ms/frame)", 30, 500, 100, 10, help="Duración de cada frame. Menor = más rápido, más fluido.")
             with col2:
-                mostrar_reproduccion = st.checkbox("Mostrar reproducción fluida", value=True, help="Interpola suavemente entre generaciones mostrando el proceso de reproducción")
+                mostrar_reproduccion = st.checkbox("Mostrar reproducción fluida", value=True, help="Interpola suavemente entre generaciones (10 frames intermedios)")
         else:
-            velocidad_animacion = 100
+            velocidad_animacion = 50
             mostrar_reproduccion = True
 
     params = {
